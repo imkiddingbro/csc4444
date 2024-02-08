@@ -97,4 +97,4 @@ if __name__ == '__main__':
         print(f'Minimum cost from {start} to {node} is {info["cost"]}')
       
     #   **** Bonus ****
-        print(f'Path: {"->".join(map(str, info["path"]))}')
+        print(f'Path: {" to ".join(map(str, info["path"]))}')
