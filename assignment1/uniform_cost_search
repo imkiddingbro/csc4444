@@ -9,7 +9,6 @@ def  uniform_cost_search(start, goal, graph, cost):
     
     # create priority queue
     prioQueue = [(0, start, [])]
-    
     #create a set of objects to track the nodes that have been visited
     checked = set()
     
@@ -31,10 +30,8 @@ def  uniform_cost_search(start, goal, graph, cost):
 
         # check the adjacent nodes
         for adjacent in graph[currNode]:
-            
             # cost of the adjecent node 
             adjCost = currCost + cost.get((currNode, adjacent), float('inf'))
-            
             # Push the adjacent and the cost to the prio queue
             heapq.heappush(prioQueue, (adjCost, adjacent, currPath + [currNode]))
     
@@ -97,4 +94,6 @@ if __name__ == '__main__':
         print(f'Minimum cost from {start} to {node} is {info["cost"]}')
       
     #   **** Bonus ****
+        #I tried to print the cost at each node along with the path but could not get it to work.
+        #When I added + Cost: {info["cost"]} it would only print the total even while iterating.
         print(f'Path: {" to ".join(map(str, info["path"]))}')
