@@ -97,4 +97,7 @@ if __name__ == '__main__':
         print(f'Minimum cost from {start} to {node} is {info["cost"]}')
       
     #   **** Bonus ****
+        #I couldn't get the cost aat each node to print with the path. 
+        #When I tried doing + Cost: {info["cost"]} to the end of the print statement 
+        #it would only ever return the total cost.
         print(f'Path: {" to ".join(map(str, info["path"]))}')
