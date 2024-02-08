@@ -91,7 +91,7 @@ if __name__ == '__main__':
     min_cost_info = uniform_cost_search(start, goal, graph, cost)
 
     for node, info in min_cost_info.items():
-        print(f'Minimum cost from {start} to {node} is {info["cost"]}')
+        print(f'Minimum cost from {start} to {node} is -> {info["cost"]}')
       
     #   **** Bonus ****
         #I tried to print the cost at each node along with the path but could not get it to work.
