@@ -1,0 +1,100 @@
+import heapq
+# uniform cost function
+# returns the minimum cost (Bonus: returns path to minimum cost as well)
+def  uniform_cost_search(start, goal, graph, cost):
+    answer = {node: {'cost': float('inf'), 'path': []} for node in goal}
+#     **************************************
+#     ******** Write your code here ********
+#     **************************************
+    
+    # create priority queue
+    pq = [(0, start, [])]
+    
+    #create a set of objects to track the nodes that have been visited
+    checked = set()
+    
+    #while there are items in the priority queue
+    while pq:
+        #initialize varibables to track cost, node, and path to the smallest element in the priority queue
+        currCost, currNode, currPath = heapq.heappop(pq)
+        
+        # check if the current node has been checked
+        if currNode in checked:
+            continue
+        checked.add(currNode)
+
+        # check current node to see if it is in the goal state
+        if currNode in goal:  
+            # Update the answer 
+            answer[currNode]['cost'] = currCost
+            answer[currNode]['path'] = currPath + [currNode]
+
+        # check the adjacent nodes
+        for adjacent in graph[currNode]:
+            
+            # cost of the adjecent node 
+            adjCost = currCost + cost.get((currNode, adjacent), float('inf'))
+            
+            # Push the adjacent and the cost to the prio queue
+            heapq.heappush(pq, (adjCost, adjacent, currPath + [currNode]))
+    
+    return answer
+ 
+# main function
+if __name__ == '__main__':
+     
+    # create a graph with no more than 30 nodes
+    graph, cost = [[] for i in range(30)], {}
+ 
+    # add edges to the graph
+    graph[0].append(4)
+    graph[0].append(5)
+    graph[0].append(16)
+    graph[2].append(1)
+    graph[3].append(1)
+    graph[4].append(2)
+    graph[4].append(3)
+    graph[4].append(5)
+    graph[5].append(8)
+    graph[5].append(18)
+    graph[6].append(3)
+    graph[6].append(7)
+    graph[8].append(16)
+    graph[8].append(17)
+    graph[16].append(17)
+    graph[18].append(6)
+    
+ 
+    # add cost to each edge
+    cost[(0, 4)] = 3
+    cost[(0, 5)] = 9
+    cost[(0, 16)] = 1
+    cost[(2, 1)] = 2
+    cost[(3, 1)] = 2
+    cost[(4, 2)] = 1
+    cost[(4, 3)] = 8
+    cost[(4, 5)] = 2
+    cost[(5, 8)] = 3
+    cost[(5, 18)] = 2
+    cost[(6, 3)] = 3
+    cost[(6, 7)] = 2
+    cost[(8, 16)] = 4
+    cost[(8, 17)] = 4
+    cost[(16, 17)] = 15
+    cost[(18, 6)] = 1
+    
+    # set start state 
+    start = 0
+    
+    # set goal state, there can be multiple goal states
+    goal = [7]
+    
+    # call uniform_search_cost function to get the minimum cost to reach gaol. Bonus points for path
+    # ****** You have to implement this function *****
+    min_cost_info = uniform_cost_search(start, goal, graph, cost)
+
+    for node, info in min_cost_info.items():
+        print(f'Minimum cost from {start} to {node} is {info["cost"]}')
+      
+    #   **** Bonus ****
+        print(f'Path: {"->".join(map(str, info["path"]))}')
